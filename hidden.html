@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비디오 플레이어</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            transition: background-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        header {
+            background: #343a40;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            top: 0;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            margin-top: 60px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .banner {
+            width: 150px;
+            height: 450px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            overflow: hidden;
+        }
+        .banner img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        .video-container {
+            flex-grow: 1;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 600px;
+            max-width: 100%;
+            position: relative;
+        }
+        .video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        .video.active {
+            display: block;
+        }
+        .controls, .arrow-controls {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .controls button, .arrow-controls button {
+            margin: 0 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .controls button {
+            background: #343a40;
+            color: white;
+        }
+        .controls button:hover {
+            background: #4CAF50;
+        }
+        .arrow-controls button {
+            font-size: 24px;
+            background: transparent;
+            color: #343a40;
+        }
+        .arrow-controls button:hover {
+            color: #4CAF50;
+        }
+        .volume-slider {
+            margin-left: 10px;
+        }
+        .dark-mode {
+            background-color: #333;
+            color: white;
+        }
+        .dark-mode .controls button, .dark-mode .arrow-controls button {
+            background: #555;
+            color: white;
+        }
+        .dark-mode .controls button:hover, .dark-mode .arrow-controls button:hover {
+            background: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>비디오 플레이어</h1>
+    </header>
+    <div class="container">
+        <div class="banner">
+            <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDv1Fytagbi-0pcHRlHZyXLO9pOQogu1RfSw&s" target="_blank">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDv1Fytagbi-0pcHRlHZyXLO9pOQogu1RfSw&s" alt="왼쪽 배너 이미지">
+            </a>
+        </div>
+        <div class="video-container" id="video-container"></div>
+        <div class="banner">
+            <a href="https://product.cdn.cevaws.com/var/storage/images/_aliases/reference/media/feliway-2017/images/kor-kr/1_gnetb-7sfmbx49emluey4a/6341829-1-kor-KR/1_gNETb-7SfMBX49EMLUeY4A.jpg" target="_blank">
+                <img src="https://product.cdn.cevaws.com/var/storage/images/_aliases/reference/media/feliway-2017/images/kor-kr/1_gnetb-7sfmbx49emluey4a/6341829-1-kor-KR/1_gNETb-7SfMBX49EMLUeY4A.jpg" alt="오른쪽 배너 이미지">
+            </a>
+        </div>
+    </div>
+    <div class="controls">
+        <button id="play-pause">재생</button>
+        <button id="fullscreen">전체화면</button>
+        <label for="volume">음량:</label>
+        <input type="range" id="volume" class="volume-slider" min="0" max="100" value="100">
+        <span id="volume-label">음량: 100%</span>
+        <button id="toggle-theme">다크모드</button>
+    </div>
+    <div class="arrow-controls">
+        <button id="prev-video">◀ 이전 영상</button>
+        <button id="next-video">다음 영상 ▶</button>
+    </div>
+
+    <script>
+        const videoIds = [
+            'dQw4w9WgXcQ',
+            'dafoCFkuaKk',
+            '6NbCxN1HE1k',
+            '4yMHKmgbDQ0',
+            'JS0fTRpcUoQ',
+            'bB7QIixWx7U',
+            'AX7BcBD8-BA',
+            'mzAwKKRGXSk', 
+            'Tp8wIaYC1RM',
+            'k8CAY6yqDdA',
+            'kIjUfXfJjGU',
+            'yzaEpU5GwlI',
+            'FenzY6mOyGw'
+        ];
+        
+        const videoContainer = document.getElementById('video-container');
+        let currentVideoIndex = 0;
+        let isPlaying = false;
+        let isDarkMode = false;
+
+        videoIds.forEach(videoId => {
+            const iframe = document.createElement('iframe');
+            iframe.className = 'video';
+            iframe.src = `https://www.youtube.com/embed/${videoId}?enablejsapi=1&autoplay=0`;
+            iframe.frameBorder = '0';
+            iframe.allowFullscreen = true;
+            videoContainer.appendChild(iframe);
+        });
+
+        const videos = document.querySelectorAll('.video');
+
+        function updateVideoDisplay() {
+            videos.forEach((video, index) => {
+                video.style.display = index === currentVideoIndex ? 'block' : 'none';
+            });
+            setTimeout(() => {
+                if (isPlaying) {
+                    videos[currentVideoIndex].contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                }
+            }, 100);
+        }
+
+        document.getElementById('play-pause').addEventListener('click', () => {
+            const currentVideo = videos[currentVideoIndex];
+            if (isPlaying) {
+                currentVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                document.getElementById('play-pause').textContent = '재생';
+            } else {
+                currentVideo.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                document.getElementById('play-pause').textContent = '정지';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        document.getElementById('next-video').addEventListener('click', () => {
+            const currentVideo = videos[currentVideoIndex];
+            currentVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            updateVideoDisplay();
+            document.getElementById('play-pause').textContent = '재생';
+            isPlaying = false;
+        });
+
+        document.getElementById('prev-video').addEventListener('click', () => {
+            const currentVideo = videos[currentVideoIndex];
+            currentVideo.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
+            updateVideoDisplay();
+            document.getElementById('play-pause').textContent = '재생';
+            isPlaying = false;
+        });
+
+        document.getElementById('volume').addEventListener('input', (event) => {
+            const volume = event.target.value / 100;
+            videos[currentVideoIndex].contentWindow.postMessage(`{"event":"command","func":"setVolume","args":[${volume * 100}]} `, '*');
+            document.getElementById('volume-label').textContent = `음량: ${event.target.value}%`;
+        });
+
+        document.getElementById('toggle-theme').addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            document.getElementById('toggle-theme').textContent = isDarkMode ? '화이트모드' : '다크모드';
+            updateButtonStyles();
+        });
+
+        function updateButtonStyles() {
+            const arrowButtons = document.querySelectorAll('.arrow-controls button');
+            arrowButtons.forEach(button => {
+                if (isDarkMode) {
+                    button.style.color = 'white';
+                } else {
+                    button.style.color = '#343a40';
+                }
+            });
+        }
+
+        updateVideoDisplay();
+    </script>
+</body>
+</html>
