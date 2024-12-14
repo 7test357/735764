@@ -1,228 +1,93 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>비디오 플레이어</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        header {
-            background: #343a40;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            width: 100%;
-            position: absolute;
-            top: 0;
-        }
-        .container {
-            display: flex;
-            align-items: center;
-            margin-top: 60px;
-            width: 100%;
-            max-width: 1200px;
-        }
-        .banner {
-            width: 150px;
-            height: 450px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 10px;
-            overflow: hidden;
-        }
-        .banner img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-        }
-        .video-container {
-            flex-grow: 1;
-            background: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 600px;
-            max-width: 100%;
-            position: relative;
-        }
-        .video-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .controls, .arrow-controls {
-            display: flex;
-            justify-content: center;
-            margin: 10px 0;
-            position: relative;
-            z-index: 1;
-        }
-        .controls button, .arrow-controls button {
-            margin: 0 10px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .controls button {
-            background: #343a40;
-            color: white;
-        }
-        .controls button:hover {
-            background: #4CAF50;
-        }
-        .arrow-controls button {
-            font-size: 24px;
-            background: transparent;
-            color: #343a40;
-        }
-        .arrow-controls button:hover {
-            color: #4CAF50;
-        }
-        .volume-slider {
-            margin-left: 10px;
-        }
-        .dark-mode {
-            background-color: #333;
-            color: white;
-        }
-        .dark-mode .controls button, .dark-mode .arrow-controls button {
-            background: #555;
-            color: white;
-        }
-        .dark-mode .controls button:hover, .dark-mode .arrow-controls button:hover {
-            background: #4CAF50;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>비디오 플레이어</h1>
-    </header>
-    <div class="container">
-        <div class="banner">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDv1Fytagbi-0pcHRlHZyXLO9pOQogu1RfSw&s" alt="왼쪽 배너 이미지">
-        </div>
-        <div class="video-container" id="video-container"></div>
-        <div class="banner">
-            <img src="https://product.cdn.cevaws.com/var/storage/images/_aliases/reference/media/feliway-2017/images/kor-kr/1_gnetb-7sfmbx49emluey4a/6341829-1-kor-KR/1_gNETb-7SfMBX49EMLUeY4A.jpg" alt="오른쪽 배너 이미지">
-        </div>
-    </div>
-    <div class="controls">
-        <button id="play-pause">재생</button>
-        <button id="fullscreen">전체화면</button>
-        <label for="volume">음량:</label>
-        <input type="range" id="volume" class="volume-slider" min="0" max="100" value="100">
-        <span id="volume-label">음량: 100%</span>
-        <button id="toggle-theme">다크모드</button>
-    </div>
-    <div class="arrow-controls">
-        <button id="prev-video">◀ 이전 영상</button>
-        <button id="next-video">다음 영상 ▶</button>
-    </div>
+<!DOCTYPE html> <html lang="ko"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>비디오 플레이어</title> <style> body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; } header { background: #343a40; color: white; padding: 10px; text-align: center; width: 100%; position: absolute; top: 0; } .container { display: flex; align-items: center; margin-top: 60px; width: 100%; max-width: 1200px; } .banner { width: 150px; height: 450px; display: flex; align-items: center; justify-content: center; margin: 0 10px; overflow: hidden; } .banner img { max-width: 100%; max-height: 100%; object-fit: cover; } .video-container { flex-grow: 1; background: black; display: flex; justify-content: center; align-items: center; height: 600px; max-width: 100%; position: relative; } .controls, .arrow-controls { display: flex; justify-content: center; margin: 10px 0; position: relative; z-index: 1; } .controls button, .arrow-controls button { margin: 0 10px; padding: 10px; border: none; border-radius: 5px; cursor: pointer; } .controls button { background: #343a40; color: white; } .controls button:hover { background: #4CAF50; } .arrow-controls button { font-size: 24px; background: transparent; color: #343a40; } .arrow-controls button:hover { color: #4CAF50; } .volume-slider { margin-left: 10px; } .dark-mode { background-color: #333; color: white; } .dark-mode .controls button, .dark-mode .arrow-controls button { background: #555; color: white; } .dark-mode .controls button:hover, .dark-mode .arrow-controls button:hover { background: #4CAF50; } </style> </head> <body> <header> <h1>비디오 플레이어</h1> </header> <div class="container"> <div class="banner"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDv1Fytagbi-0pcHRlHZyXLO9pOQogu1RfSw&s" alt="왼쪽 배너 이미지"> </div> <div class="video-container" id="video-container"></div> <div class="banner"> <img src="https://product.cdn.cevaws.com/var/storage/images/_aliases/reference/media/feliway-2017/images/kor-kr/1_gnetb-7sfmbx49emluey4a/6341829-1-kor-KR/1_gNETb-7SfMBX49EMLUeY4A.jpg" alt="오른쪽 배너 이미지"> </div> </div> <div class="controls"> <button id="play-pause">재생</button> <button id="fullscreen">전체화면</button> <label for="volume">음량:</label> <input type="range" id="volume" class="volume-slider" min="0" max="100" value="100"> <span id="volume-label">음량: 100%</span> <button id="toggle-theme">다크모드</button> </div> <div class="arrow-controls"> <button id="prev-video">◀ 이전 영상</button> <button id="next-video">다음 영상 ▶</button> </div>
 
-    <script>
-        const videoIds = [
-            'dQw4w9WgXcQ',
-            'lAq9l8o6UXU',
-            'cQFgFD1TzWc',
-            'xyjxIhpm8Qo',
-            'CiF5ikqrnRI',
-            'FCrMKhrFH7A',
-            'qgqu41UEXSs',
-            'BewOO9EjoLk',
-            '0C89Qye-x-s',
-            'kowTrv02LHw'
-        ];
+<script>
+    const videoIds = [
+        'dQw4w9WgXcQ',
+        'lAq9l8o6UXU',
+        'cQFgFD1TzWc',
+        'xyjxIhpm8Qo',
+        'CiF5ikqrnRI',
+        'FCrMKhrFH7A',
+        'qgqu41UEXSs',
+        'BewOO9EjoLk',
+        '0C89Qye-x-s',
+        'kowTrv02LHw'
+    ];
 
-        let currentVideoIndex = 0;
-        let isPlaying = false;
-        let isDarkMode = false;
+    let currentVideoIndex = 0;
+    let isPlaying = false;
+    let isDarkMode = false;
 
-        const videoContainer = document.getElementById('video-container');
+    const videoContainer = document.getElementById('video-container');
 
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            document.body.appendChild(tag);
-        }
+    function loadYouTubeAPI() {
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.body.appendChild(tag);
+    }
 
-        let players = [];
+    let players = [];
 
-        function onYouTubeIframeAPIReady() {
-            videoIds.forEach((videoId, index) => {
-                const iframe = document.createElement('iframe');
-                iframe.id = `video-${index}`;
-                iframe.src = `https://www.youtube.com/embed/${videoId}?enablejsapi=1`;
-                iframe.frameBorder = "0";
-                iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-                iframe.allowFullscreen = true;
-                videoContainer.appendChild(iframe);
+    function onYouTubeIframeAPIReady() {
+        videoIds.forEach((videoId, index) => {
+            const iframe = document.createElement('div');
+            iframe.id = `video-${index}`;
+            iframe.style.display = index === 0 ? 'block' : 'none';
+            videoContainer.appendChild(iframe);
 
-                const player = new YT.Player(iframe.id, {
-                    events: {
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
-                players.push(player);
-            });
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                currentVideoIndex = (currentVideoIndex + 1) % players.length;
-                updateVideoDisplay();
-            }
-        }
-
-        function updateVideoDisplay() {
-            players.forEach((player, index) => {
-                const iframe = document.getElementById(`video-${index}`);
-                iframe.style.display = index === currentVideoIndex ? 'block' : 'none';
-                if (index === currentVideoIndex) {
-                    player.playVideo();
-                } else {
-                    player.stopVideo();
+            const player = new YT.Player(iframe.id, {
+                videoId: videoId,
+                events: {
+                    'onStateChange': onPlayerStateChange
                 }
             });
-        }
-
-        document.getElementById('play-pause').addEventListener('click', () => {
-            const currentPlayer = players[currentVideoIndex];
-            if (isPlaying) {
-                currentPlayer.pauseVideo();
-                document.getElementById('play-pause').textContent = '재생';
-            } else {
-                currentPlayer.playVideo();
-                document.getElementById('play-pause').textContent = '정지';
-            }
-            isPlaying = !isPlaying;
+            players.push(player);
         });
+    }
 
-        document.getElementById('next-video').addEventListener('click', () => {
-            players[currentVideoIndex].stopVideo();
+    function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.ENDED) {
             currentVideoIndex = (currentVideoIndex + 1) % players.length;
             updateVideoDisplay();
-        });
+        }
+    }
 
-        document.getElementById('prev-video').addEventListener('click', () => {
-            players[currentVideoIndex].stopVideo();
-            currentVideoIndex = (currentVideoIndex - 1 + players.length) % players.length;
-            updateVideoDisplay();
+    function updateVideoDisplay() {
+        players.forEach((player, index) => {
+            const iframe = document.getElementById(`video-${index}`);
+            iframe.style.display = index === currentVideoIndex ? 'block' : 'none';
+            if (index === currentVideoIndex) {
+                player.playVideo();
+            } else {
+                player.stopVideo();
+            }
         });
+    }
 
-        loadYouTubeAPI();
-    </script>
-</body>
-</html>
+    document.getElementById('play-pause').addEventListener('click', () => {
+        const currentPlayer = players[currentVideoIndex];
+        if (isPlaying) {
+            currentPlayer.pauseVideo();
+            document.getElementById('play-pause').textContent = '재생';
+        } else {
+            currentPlayer.playVideo();
+            document.getElementById('play-pause').textContent = '정지';
+        }
+        isPlaying = !isPlaying;
+    });
+
+    document.getElementById('next-video').addEventListener('click', () => {
+        players[currentVideoIndex].stopVideo();
+        currentVideoIndex = (currentVideoIndex + 1) % players.length;
+        updateVideoDisplay();
+    });
+
+    document.getElementById('prev-video').addEventListener('click', () => {
+        players[currentVideoIndex].stopVideo();
+        currentVideoIndex = (currentVideoIndex - 1 + players.length) % players.length;
+        updateVideoDisplay();
+    });
+
+    loadYouTubeAPI();
+</script>
+</body> </html>
