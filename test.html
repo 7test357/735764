@@ -114,7 +114,9 @@
         <div class="banner">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDv1Fytagbi-0pcHRlHZyXLO9pOQogu1RfSw&s" alt="왼쪽 배너 이미지">
         </div>
-        <div class="video-container" id="video-container"></div>
+        <div class="video-container" id="video-container">
+            <iframe id="video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
         <div class="banner">
             <img src="https://product.cdn.cevaws.com/var/storage/images/_aliases/reference/media/feliway-2017/images/kor-kr/1_gnetb-7sfmbx49emluey4a/6341829-1-kor-KR/1_gNETb-7SfMBX49EMLUeY4A.jpg" alt="오른쪽 배너 이미지">
         </div>
@@ -148,54 +150,19 @@
 
         let currentVideoIndex = 0;
         let isPlaying = false;
-        let isDarkMode = false;
 
         const videoContainer = document.getElementById('video-container');
+        const videoIframe = document.getElementById('video');
 
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            document.body.appendChild(tag);
-        }
-
-        let players = [];
-
-        function onYouTubeIframeAPIReady() {
-            videoIds.forEach((videoId, index) => {
-                const iframe = document.createElement('iframe');
-                iframe.id = `video-${index}`;
-                iframe.src = `https://www.youtube.com/embed/${videoId}?enablejsapi=1`;
-                iframe.frameBorder = "0";
-                iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-                iframe.allowFullscreen = true;
-                videoContainer.appendChild(iframe);
-
-                const player = new YT.Player(iframe.id, {
-                    events: {
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
-                players.push(player);
-            });
+        function loadVideo() {
+            videoIframe.src = `https://www.youtube.com/embed/${videoIds[currentVideoIndex]}?enablejsapi=1`;
         }
 
         function onPlayerStateChange(event) {
             if (event.data === YT.PlayerState.ENDED) {
-                currentVideoIndex = (currentVideoIndex + 1) % players.length;
-                updateVideoDisplay();
+                currentVideoIndex = (currentVideoIndex + 1) % videoIds.length;
+                loadVideo();
             }
-        }
-
-        function updateVideoDisplay() {
-            players.forEach((player, index) => {
-                const iframe = document.getElementById(`video-${index}`);
-                iframe.style.display = index === currentVideoIndex ? 'block' : 'none';
-                if (index === currentVideoIndex) {
-                    player.playVideo();
-                } else {
-                    player.stopVideo();
-                }
-            });
         }
 
         document.getElementById('play-pause').addEventListener('click', () => {
@@ -211,18 +178,16 @@
         });
 
         document.getElementById('next-video').addEventListener('click', () => {
-            players[currentVideoIndex].stopVideo();
-            currentVideoIndex = (currentVideoIndex + 1) % players.length;
-            updateVideoDisplay();
+            currentVideoIndex = (currentVideoIndex + 1) % videoIds.length;
+            loadVideo();
         });
 
         document.getElementById('prev-video').addEventListener('click', () => {
-            players[currentVideoIndex].stopVideo();
-            currentVideoIndex = (currentVideoIndex - 1 + players.length) % players.length;
-            updateVideoDisplay();
+            currentVideoIndex = (currentVideoIndex - 1 + videoIds.length) % videoIds.length;
+            loadVideo();
         });
 
-        loadYouTubeAPI();
+        loadVideo();
     </script>
 </body>
 </html>
