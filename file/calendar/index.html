@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025년 달력</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .month {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .month-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .month-name a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            margin-bottom: 10px;
+        }
+
+        .day {
+            font-weight: bold;
+            padding: 10px;
+            background: #f7f7f7;
+            border: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">2025년 달력</h1>
+    <div class="calendar">
+
+        <div class="month">
+            <div class="month-name"><a href="1.html">1월</a></div>
+        </div>
+
+        <div class="month">
+            <div class="month-name"><a href="2.html">2월</a></div>
+        </div>
+
+        <div class="month">
+            <div class="month-name"><a href="3.html">3월</a></div>
+        </div>
+
+        <!-- 추가적인 월 링크를 여기에 추가합니다. -->
+
+    </div>
+</body>
+</html>
