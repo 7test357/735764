@@ -68,7 +68,7 @@
         }
 
         .popular-resources h2 {
-            font-size: 2.5em;
+            font-size: 2em;
             font-weight: bold;
             color: #333;
             text-align: center;
@@ -79,10 +79,13 @@
             padding: 10px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .popular-resources {
             display: flex;
+            flex-wrap: wrap; /* 항목들이 공간에 맞게 자동으로 줄 바꿈 */
             justify-content: space-around;
             margin-top: 40px;
         }
@@ -94,6 +97,7 @@
             padding: 20px;
             width: 30%;
             text-align: center;
+            margin-bottom: 20px; /* 아래 여백 추가 */
         }
 
         .resource-card img {
