@@ -7,10 +7,27 @@ https://dreamhack.io/wargame/challenges/1644
 URL 디코딩 : 0bI0H3{Eknhzg_1l_Yxf_i4i4}
     0xH0P3{Crypto_1s_Fun_h4h4}
 
-'Q': 'A', 'W': 'B', 'E': 'C', 'R': 'D', 'T': 'E', 'Y': 'F', 'U': 'G', 'I': 'H', 'O': 'I',
-'P': 'J', 'A': 'K', 'S': 'L', 'D': 'M', 'F': 'N', 'G': 'O', 'H': 'P', 'J': 'Q', 'K': 'R',
-'L': 'S', 'Z': 'T', 'X': 'U', 'C': 'V', 'V': 'W', 'B': 'X', 'N': 'Y', 'M': 'Z',
-'q': 'a', 'w': 'b', 'e': 'c', 'r': 'd', 't': 'e', 'y': 'f', 'u': 'g', 'i': 'h', 'o': 'i',
-'p': 'j', 'a': 'k', 's': 'l', 'd': 'm', 'f': 'n', 'g': 'o', 'h': 'p', 'j': 'q', 'k': 'r',
-'l': 's', 'z': 't', 'x': 'u', 'c': 'v', 'v': 'w', 'b': 'x', 'n': 'y', 'm': 'z'
+import urllib.parse
+
+INVERSE_KEY = {
+    'Q': 'A', 'W': 'B', 'E': 'C', 'R': 'D', 'T': 'E', 'Y': 'F', 'U': 'G', 'I': 'H', 'O': 'I',
+    'P': 'J', 'A': 'K', 'S': 'L', 'D': 'M', 'F': 'N', 'G': 'O', 'H': 'P', 'J': 'Q', 'K': 'R',
+    'L': 'S', 'Z': 'T', 'X': 'U', 'C': 'V', 'V': 'W', 'B': 'X', 'N': 'Y', 'M': 'Z',
+    'q': 'a', 'w': 'b', 'e': 'c', 'r': 'd', 't': 'e', 'y': 'f', 'u': 'g', 'i': 'h', 'o': 'i',
+    'p': 'j', 'a': 'k', 's': 'l', 'd': 'm', 'n': 'f', 'g': 'o', 'h': 'p', 'j': 'q', 'r': 'k',
+    'l': 's', 'z': 't', 'x': 'u', 'c': 'v', 'v': 'w', 'b': 'x', 'n': 'y', 'm': 'z'
+}
+
+def decrypt_substitution(data):
+    return ''.join(INVERSE_KEY.get(char, char) for char in data)
+
+def decrypt(encrypted_text):
+    url_decoded = urllib.parse.unquote(encrypted_text)
+    decrypted = decrypt_substitution(url_decoded)
+    return decrypted
+
+encrypted_flag = "0bI0H3%7BEknhzg_1l_Yxf_i4i4%7D"
+
+decrypted_flag = decrypt(encrypted_flag)
+print(decrypted_flag)
 
