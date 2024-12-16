@@ -36,12 +36,13 @@
 
         #countdown {
             font-size: 32px;
-            color: #e74c3c;
+            color: #2ecc71; /* 밝은 녹색으로 변경 */
             font-weight: bold;
             background-color: #ecf0f1;
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         #countdown span {
@@ -58,7 +59,7 @@
 
         .dark-mode #countdown {
             background-color: #34495e;
-            color: #f39c12;
+            color: #f39c12; /* 다크 모드에서는 노란색으로 변경 */
         }
 
         .dark-mode .container {
