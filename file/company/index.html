@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="상업용 디자인 리소스를 제공하는 사이트">
+    <title>상업용 디자인 리소스</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 40px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+        }
+
+        .cta-button {
+            background-color: #ff9900;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        .popular-resources {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+        }
+
+        .resource-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 30%;
+            text-align: center;
+        }
+
+        .resource-card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .resource-card h3 {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        .resource-card p {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .resource-card a {
+            color: #ff9900;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">홈</a></li>
+                <li><a href="#">디자인 리소스</a></li>
+                <li><a href="#">카테고리</a></li>
+                <li><a href="#">가격</a></li>
+                <li><a href="#">로그인</a></li>
+                <li><a href="#">회원가입</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>디자인 리소스 구매하세요!</h1>
+            <p>디자이너를 위한 고품질 상업용 리소스를 제공합니다.</p>
+            <a href="#" class="cta-button">지금 시작하기</a>
+        </section>
+
+        <section class="popular-resources">
+            <h2>인기 리소스</h2>
+            <div class="resource-card">
+                <img src="image/resource1.jpg" alt="리소스1">
+                <h3>아이콘 세트</h3>
+                <p>상업적 사용이 가능한 아이콘 세트</p>
+                <a href="#">자세히 보기</a>
+            </div>
+            <div class="resource-card">
+                <img src="image/resource2.jpg" alt="리소스2">
+                <h3>웹 템플릿</h3>
+                <p>반응형 웹 템플릿</p>
+                <a href="#">자세히 보기</a>
+            </div>
+            <div class="resource-card">
+                <img src="image/resource3.jpg" alt="리소스3">
+                <h3>폰트</h3>
+                <p>상업용 폰트</p>
+                <a href="#">자세히 보기</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 상업용 디자인 리소스. 모든 권리 보유.</p>
+    </footer>
+
+    <script>
+        document.querySelector('.cta-button').addEventListener('click', function() {
+            alert('지금 시작하기 버튼 클릭!');
+        });
+    </script>
+</body>
+</html>
