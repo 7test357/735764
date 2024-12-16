@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>남은 시간</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        #countdown {
+            font-size: 36px;
+            color: #e74c3c;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ff6f61, #f39c12);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin-top: 20px;
+        }
+
+        #countdown span {
+            display: block;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            #countdown {
+                font-size: 28px;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>남은 시간</h1>
+    <p id="countdown"></p>
+
+    <script>
+        function updateCountdown() {
+            const targetDate = new Date('2025-01-11T00:00:00');
+            const now = new Date();
+            const remainingTime = targetDate - now;
+
+            if (remainingTime <= 0) {
+                document.getElementById('countdown').innerHTML = '목표 시간에 도달했습니다!';
+                return;
+            }
+
+            const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = 
+                `<span>${days}일</span><span>${hours}시간</span><span>${minutes}분</span><span>${seconds}초</span>`;
+        }
+
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
