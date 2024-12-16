@@ -7,55 +7,68 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f8ff;
+            background-color: #f8f9fa;
             color: #333;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
         }
 
         h1 {
-            font-size: 48px;
+            font-size: 36px;
             color: #2c3e50;
             margin-bottom: 20px;
         }
 
         #countdown {
-            font-size: 36px;
+            font-size: 32px;
             color: #e74c3c;
             font-weight: bold;
+            background-color: #ecf0f1;
             padding: 20px;
             border-radius: 10px;
-            background: linear-gradient(135deg, #ff6f61, #f39c12);
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
             margin-top: 20px;
         }
 
         #countdown span {
-            display: block;
-            margin: 5px 0;
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 30px;
+            font-weight: bold;
         }
 
         @media (max-width: 768px) {
-            body {
+            .container {
                 padding: 20px;
             }
-            #countdown {
+
+            h1 {
                 font-size: 28px;
-                width: auto;
+            }
+
+            #countdown {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>남은 시간</h1>
-    <p id="countdown"></p>
+    <div class="container">
+        <h1>남은 시간</h1>
+        <div id="countdown"></div>
+    </div>
 
     <script>
         function updateCountdown() {
