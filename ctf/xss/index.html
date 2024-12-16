@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSS CTF 문제</title>
+</head>
+<body>
+    <h1>환영합니다!</h1>
+    <p>이 웹사이트에서는 사용자 이름을 입력받습니다.</p>
+    <form action="xss_example.php" method="GET">
+        <label for="username">이름을 입력하세요:</label>
+        <input type="text" name="username" id="username" />
+        <input type="submit" value="입력" />
+    </form>
+
+    <div>
+        <h2>입력한 이름: </h2>
+        <p>
+            <?php
+                if (isset($_GET['username'])) {
+                    echo "반갑습니다, " . $_GET['username'];
+                }
+            ?>
+        </p>
+    </div>
+</body>
+</html>
