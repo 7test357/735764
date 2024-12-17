@@ -1,19 +1,22 @@
 (function() {
-    function _0x7a8b(_0x3f4b) {
-        _0x3f4b.preventDefault();
+    function checkLogin(event) {
+        event.preventDefault();
         
-        const _0x1d2c = document.getElementById("username").value;
-        const _0x50bc = document.getElementById("password").value;
-        const _0x5f8a = document.getElementById("output");
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const outputElement = document.getElementById("output");
 
-        if (_0x1d2c === "admin" && _0x50bc === "admin") {
-            _0x5f8a.textContent = "Login Successful!";
-        } else if (_0x1d2c.includes("admin' OR '1'='1")) {
-            _0x5f8a.textContent = "Congratulations! Here is your flag: K4{H3llo_sql1}";
+        if (username === "admin" && password === "admin") {
+            outputElement.textContent = "Login Successful!";
+            outputElement.style.color = "green";
+        } else if (username.includes("admin' OR '1'='1")) {
+            outputElement.textContent = "Congratulations! Here is your flag: K4{H3llo_sql1}";
+            outputElement.style.color = "green";
         } else {
-            _0x5f8a.textContent = "Invalid credentials! Try again.";
+            outputElement.textContent = "Invalid credentials! Try again.";
+            outputElement.style.color = "red";
         }
     }
 
-    document.querySelector("form").addEventListener("submit", _0x7a8b);
+    document.querySelector("form").addEventListener("submit", checkLogin);
 })();
