@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake SQL Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #flag {
+            display: none;
+            margin-top: 20px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login Page</h1>
+    <p>Try to login as admin without knowing the password!</p>
+
+    <form onsubmit="checkLogin(event)">
+        <input type="text" id="username" placeholder="Username" required>
+        <br>
+        <input type="password" id="password" placeholder="Password" required>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+
+    <p id="flag">Congratulations! Here is your flag: <strong>K4{H3llo_sql1}</strong></p>
+
+    <script>
+        function checkLogin(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Fake server-side login logic
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Simulating vulnerable SQL query
+            // SQL Query: SELECT * FROM users WHERE username = 'input' AND password = 'input'
+            if (
+                (username === "admin" && password === "admin") || 
+                (username === "admin" && password.includes("' OR '1'='1"))
+            ) {
+                document.getElementById("flag").style.display = "block";
+            } else {
+                alert("Invalid credentials! Try again.");
+            }
+        }
+    </script>
+</body>
+</html>
