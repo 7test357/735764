@@ -1,22 +1,19 @@
 (function() {
-    function _0x1d1f(_0x53f1) {
-        _0x53f1.preventDefault();
+    function _0x7a8b(_0x3f4b) {
+        _0x3f4b.preventDefault();
+        
+        const _0x1d2c = document.getElementById("username").value;
+        const _0x50bc = document.getElementById("password").value;
+        const _0x5f8a = document.getElementById("output");
 
-        const _0x56a1 = document.getElementById("username").value;
-        const _0x2f72 = document.getElementById("password").value;
-
-        if (_0x56a1 === "admin" && _0x2f72 === "admin") {
-            document.getElementById("message").style.display = "block";
-            document.getElementById("flag").style.display = "none";
-        } else if (_0x56a1.includes("admin' OR '1'='1")) {
-            document.getElementById("flag").style.display = "block";
-            document.getElementById("message").style.display = "none";
+        if (_0x1d2c === "admin" && _0x50bc === "admin") {
+            _0x5f8a.textContent = "Login Successful!";
+        } else if (_0x1d2c.includes("admin' OR '1'='1")) {
+            _0x5f8a.textContent = "Congratulations! Here is your flag: K4{H3llo_sql1}";
         } else {
-            alert("Invalid\x20credentials!Try\x20again.");
-            document.getElementById("message").style.display = "none";
-            document.getElementById("flag").style.display = "none";
+            _0x5f8a.textContent = "Invalid credentials! Try again.";
         }
     }
 
-    document.querySelector("form").addEventListener("submit", _0x1d1f);
+    document.querySelector("form").addEventListener("submit", _0x7a8b);
 })();
