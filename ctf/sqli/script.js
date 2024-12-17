@@ -8,7 +8,7 @@
             document.getElementById("flag").style.display = "none";
         } else if (
             _0x9e8f0 === "admin" &&
-            _0x7c1b2.includes("' OR '1'='1")
+            _0x7c1b2.includes("${{secrets.sqli}}")
         ) {
             document.getElementById("flag").style.display = "block";
             document.getElementById("message").style.display = "none";
