@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+</head>
+<body>
+    <h1>게시판</h1>
+    <form id="postForm">
+        <label for="title">제목:</label>
+        <input type="text" id="title" name="title" required>
+        <br>
+        <label for="content">내용:</label>
+        <textarea id="content" name="content" required></textarea>
+        <br>
+        <button type="submit">작성</button>
+    </form>
+
+    <h2>게시글 목록</h2>
+    <ul id="postList"></ul>
+
+    <script>
+        const form = document.getElementById('postForm');
+        const postList = document.getElementById('postList');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = form.title.value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const content = form.content.value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const postId = Date.now();
+            localStorage.setItem(`post_${postId}`, JSON.stringify({ title, content }));
+            const li = document.createElement('li');
+            li.innerHTML = `<a href="view.html?id=${postId}">${title}</a>`;
+            postList.appendChild(li);
+            form.reset();
+        });
+
+        for (let key in localStorage) {
+            if (key.startsWith('post_')) {
+                const { title } = JSON.parse(localStorage[key]);
+                const postId = key.split('_')[1];
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="view.html?id=${postId}">${title}</a>`;
+                postList.appendChild(li);
+            }
+        }
+    </script>
+</body>
+</html>
