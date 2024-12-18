@@ -9,6 +9,7 @@
     <h1>관리자 페이지</h1>
     <p>관리자가 새로운 게시글을 검토합니다...</p>
     <div id="adminView"></div>
+    <div id="flag" style="display: none;">K4{4774ck_XSS}</div>
 
     <script>
         for (let key in localStorage) {
@@ -22,6 +23,11 @@
                 `;
                 document.getElementById('adminView').appendChild(div);
             }
+        }
+
+        window.revealFlag = function () {
+            const flag = document.getElementById('flag').innerText;
+            alert('FLAG: ' + flag);
         }
     </script>
 </body>
