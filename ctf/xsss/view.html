@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 보기</title>
+</head>
+<body>
+    <h1>게시글 보기</h1>
+    <div id="post"></div>
+    <a href="index.html">목록으로</a>
+
+    <script>
+        const postId = new URLSearchParams(window.location.search).get('id');
+        const post = JSON.parse(localStorage.getItem(`post_${postId}`));
+        if (post) {
+            document.getElementById('post').innerHTML = `
+                <h2>${post.title}</h2>
+                <p>${post.content}</p>
+            `;
+        } else {
+            document.getElementById('post').innerText = '게시글이 존재하지 않습니다.';
+        }
+    </script>
+</body>
+</html>
