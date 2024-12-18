@@ -26,13 +26,16 @@
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            const title = form.title.value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            const content = form.content.value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const title = form.title.value;
+            const content = form.content.value;
+
             const postId = Date.now();
             localStorage.setItem(`post_${postId}`, JSON.stringify({ title, content }));
+
             const li = document.createElement('li');
             li.innerHTML = `<a href="view.html?id=${postId}">${title}</a>`;
             postList.appendChild(li);
+
             form.reset();
         });
 
