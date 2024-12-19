@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 페이지</title>
+    <script src="flag.js"></script>
 </head>
 <body>
     <h1>관리자 페이지</h1>
@@ -23,6 +24,12 @@
                 document.getElementById('adminView').appendChild(div);
             }
         }
+
+        window.showFlag = function () {
+            if (document.cookie.includes('admin=true')) {
+                alert(`FLAG: ${FLAG}`);
+            }
+        };
     </script>
 </body>
 </html>
