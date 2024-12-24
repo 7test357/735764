@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ㄴSteganography Tool</title>
+    <title>Steganography Tool</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -132,10 +132,10 @@
 
                 ctx.putImageData(imageData, 0, 0);
 
-                const encryptedImage = canvas.toDataURL('image/png');
+                const encryptedImage = canvas.toDataURL('image/png'); // Get the image as a Data URL
                 const downloadLink = document.getElementById('download-encrypted');
-                downloadLink.href = encryptedImage;
-                downloadLink.style.display = 'block';
+                downloadLink.href = encryptedImage;  // Set the href to the Data URL
+                downloadLink.style.display = 'block';  // Make the download link visible
             };
             img.src = reader.result;
         };
