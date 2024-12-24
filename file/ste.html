@@ -127,8 +127,10 @@
                 const data = imageData.data;
 
                 for (let i = 0; i < message.length; i++) {
+                    if (i * 4 >= data.length) break; // Prevent overflow
                     data[i * 4] = message.charCodeAt(i); // Hide message in the red channel
                 }
+                data[message.length * 4] = 0; // Null terminator for message end
 
                 ctx.putImageData(imageData, 0, 0);
 
@@ -166,11 +168,11 @@
 
                 let message = '';
                 for (let i = 0; i < data.length; i += 4) {
-                    if (data[i] === 0) break; // Stop at null character
+                    if (data[i] === 0) break; // Null terminator indicates end of message
                     message += String.fromCharCode(data[i]);
                 }
 
-                document.getElementById('revealed-message').innerText = message;
+                document.getElementById('revealed-message').innerText = `Hidden Message: ${message}`;
             };
             img.src = reader.result;
         };
