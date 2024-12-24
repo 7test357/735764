@@ -80,7 +80,6 @@
         <textarea id="secret-message" placeholder="Enter the text to hide..."></textarea>
         <button onclick="encryptText()">Encrypt</button>
         <canvas id="encrypt-canvas" style="display: none;"></canvas>
-        <a id="download-encrypted" style="display: none;" download="encrypted-image.png">Download Encrypted Image</a>
     </div>
 
     <div id="decrypt" class="tab-content">
@@ -92,7 +91,6 @@
 </div>
 
 <script>
-    // Tab switching functionality
     document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', () => {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -103,7 +101,6 @@
         });
     });
 
-    // Encrypt text into image
     function encryptText() {
         const imageInput = document.getElementById('encrypt-image');
         const message = document.getElementById('secret-message').value;
@@ -127,24 +124,27 @@
                 const data = imageData.data;
 
                 for (let i = 0; i < message.length; i++) {
-                    if (i * 4 >= data.length) break; // Prevent overflow
-                    data[i * 4] = message.charCodeAt(i); // Hide message in the red channel
+                    if (i * 4 >= data.length) break;
+                    data[i * 4] = message.charCodeAt(i);
                 }
-                data[message.length * 4] = 0; // Null terminator for message end
+                data[message.length * 4] = 0;
 
                 ctx.putImageData(imageData, 0, 0);
 
-                const encryptedImage = canvas.toDataURL('image/png');
-                const downloadLink = document.getElementById('download-encrypted');
-                downloadLink.href = encryptedImage;
-                downloadLink.style.display = 'block';
+                canvas.toBlob(blob => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'encrypted-image.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }, 'image/png');
             };
             img.src = reader.result;
         };
         reader.readAsDataURL(imageInput.files[0]);
     }
 
-    // Decrypt text from image
     function decryptText() {
         const imageInput = document.getElementById('decrypt-image');
         const canvas = document.createElement('canvas');
@@ -168,11 +168,11 @@
 
                 let message = '';
                 for (let i = 0; i < data.length; i += 4) {
-                    if (data[i] === 0) break; // Null terminator indicates end of message
+                    if (data[i] === 0) break;
                     message += String.fromCharCode(data[i]);
                 }
 
-                document.getElementById('revealed-message').innerText = `Hidden Message: ${message}`;
+                document.getElementById('revealed-message').innerText = message;
             };
             img.src = reader.result;
         };
