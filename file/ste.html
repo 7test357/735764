@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steganography Tool</title>
+    <title>ㄴSteganography Tool</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -80,6 +80,7 @@
         <textarea id="secret-message" placeholder="Enter the text to hide..."></textarea>
         <button onclick="encryptText()">Encrypt</button>
         <canvas id="encrypt-canvas" style="display: none;"></canvas>
+        <a id="download-encrypted" style="display: none;" download="encrypted-image.png">Download Encrypted Image</a>
     </div>
 
     <div id="decrypt" class="tab-content">
@@ -131,14 +132,10 @@
 
                 ctx.putImageData(imageData, 0, 0);
 
-                canvas.toBlob(blob => {
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = 'encrypted-image.png';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                }, 'image/png');
+                const encryptedImage = canvas.toDataURL('image/png');
+                const downloadLink = document.getElementById('download-encrypted');
+                downloadLink.href = encryptedImage;
+                downloadLink.style.display = 'block';
             };
             img.src = reader.result;
         };
