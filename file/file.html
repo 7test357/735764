@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Encryption/Decryption</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <h1>File Encryption/Decryption</h1>
+
+    <div>
+        <h2>Encrypt a File</h2>
+        <input type="file" id="fileInputEncrypt">
+        <input type="text" id="encryptionKey" placeholder="Enter encryption key">
+        <button onclick="encryptFile()">Encrypt</button>
+        <a id="downloadEncrypted" style="display:none;">Download Encrypted File</a>
+    </div>
+
+    <div>
+        <h2>Decrypt a File</h2>
+        <input type="file" id="fileInputDecrypt">
+        <input type="text" id="decryptionKey" placeholder="Enter decryption key">
+        <button onclick="decryptFile()">Decrypt</button>
+        <a id="downloadDecrypted" style="display:none;">Download Decrypted File</a>
+    </div>
+
+    <script>
+        function encryptFile() {
+            const fileInput = document.getElementById('fileInputEncrypt');
+            const key = document.getElementById('encryptionKey').value;
+
+            if (!fileInput.files.length || !key) {
+                alert('Please select a file and enter an encryption key.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const fileData = event.target.result;
+                const encrypted = CryptoJS.AES.encrypt(fileData, key).toString();
+
+                const blob = new Blob([encrypted], { type: 'text/plain' });
+                const link = document.getElementById('downloadEncrypted');
+                link.href = URL.createObjectURL(blob);
+                link.download = file.name + '.encrypted';
+                link.style.display = 'inline';
+                link.textContent = 'Download Encrypted File';
+            };
+
+            reader.readAsText(file);
+        }
+
+        function decryptFile() {
+            const fileInput = document.getElementById('fileInputDecrypt');
+            const key = document.getElementById('decryptionKey').value;
+
+            if (!fileInput.files.length || !key) {
+                alert('Please select a file and enter a decryption key.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const encryptedData = event.target.result;
+                try {
+                    const decrypted = CryptoJS.AES.decrypt(encryptedData, key).toString(CryptoJS.enc.Utf8);
+
+                    if (!decrypted) {
+                        throw new Error('Decryption failed');
+                    }
+
+                    const blob = new Blob([decrypted], { type: 'text/plain' });
+                    const link = document.getElementById('downloadDecrypted');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = file.name.replace('.encrypted', '');
+                    link.style.display = 'inline';
+                    link.textContent = 'Download Decrypted File';
+                } catch (error) {
+                    alert('Decryption failed. Please check your key and file.');
+                }
+            };
+
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>
