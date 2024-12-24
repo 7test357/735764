@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Encryption/Decryption</title>
+    <script>
+        function encryptText() {
+            const text = document.getElementById('inputText').value;
+            const secretKey = document.getElementById('secretKey').value;
+
+            if (!text || !secretKey) {
+                alert('Please enter both text and secret key!');
+                return;
+            }
+
+            const encrypted = btoa(unescape(encodeURIComponent(text + secretKey)));
+            document.getElementById('outputText').value = encrypted;
+        }
+
+        function decryptText() {
+            const encryptedText = document.getElementById('inputText').value;
+            const secretKey = document.getElementById('secretKey').value;
+
+            if (!encryptedText || !secretKey) {
+                alert('Please enter both encrypted text and secret key!');
+                return;
+            }
+
+            try {
+                const decrypted = decodeURIComponent(escape(atob(encryptedText)));
+                const originalText = decrypted.replace(secretKey, '');
+                document.getElementById('outputText').value = originalText;
+            } catch (e) {
+                alert('Decryption failed. Ensure the encrypted text and key are correct.');
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea, input {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            width: 48%;
+            padding: 10px;
+            margin-right: 2%;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:last-child {
+            margin-right: 0;
+            background-color: #28a745;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .output {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Encryption/Decryption</h1>
+        <textarea id="inputText" placeholder="Enter text to encrypt or encrypted text to decrypt"></textarea>
+        <input type="text" id="secretKey" placeholder="Enter your secret key">
+        <div>
+            <button onclick="encryptText()">Encrypt</button>
+            <button onclick="decryptText()">Decrypt</button>
+        </div>
+        <textarea id="outputText" class="output" placeholder="Result will appear here" readonly></textarea>
+    </div>
+</body>
+</html>
