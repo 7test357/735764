@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steganography Tool</title>
+    <title>ㄴSteganography Tool</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -126,16 +126,16 @@
 
                 for (let i = 0; i < message.length; i++) {
                     if (i * 4 >= data.length) break;
-                    data[i * 4] = message.charCodeAt(i);
+                    data[i * 4] = message.charCodeAt(i); // Hide message in the red channel
                 }
-                data[message.length * 4] = 0;
+                data[message.length * 4] = 0; // Null character to stop the message
 
                 ctx.putImageData(imageData, 0, 0);
 
-                const encryptedImage = canvas.toDataURL('image/png'); // Get the image as a Data URL
+                const encryptedImage = canvas.toDataURL('image/png'); // Get the image as Data URL
                 const downloadLink = document.getElementById('download-encrypted');
-                downloadLink.href = encryptedImage;  // Set the href to the Data URL
-                downloadLink.style.display = 'block';  // Make the download link visible
+                downloadLink.href = encryptedImage;
+                downloadLink.style.display = 'block'; // Make the download link visible
             };
             img.src = reader.result;
         };
