@@ -40,18 +40,61 @@
       border-radius: 5px;
       font-size: 18px;
     }
+    .tabs {
+      margin-bottom: 20px;
+    }
+    .tab {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 0 5px;
+      background-color: #1e1e1e;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .tab.active {
+      background-color: #007BFF;
+      color: white;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
   <h1>Leet Speak Converter</h1>
-  <p>Type your text below to convert it to Leet Speak!</p>
-  <textarea id="inputText" placeholder="Enter your text here..."></textarea><br>
-  <button onclick="convertToLeet()">Convert to Leet</button>
-  <div class="output" id="outputText"></div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('encrypt')">Encrypt</div>
+    <div class="tab" onclick="switchTab('decrypt')">Decrypt</div>
+  </div>
+  
+  <div id="encrypt" class="tab-content active">
+    <p>Type your text below to convert it to Leet Speak!</p>
+    <textarea id="inputTextEncrypt" placeholder="Enter your text here..."></textarea><br>
+    <button onclick="convertToLeet()">Convert to Leet</button>
+    <div class="output" id="outputTextEncrypt"></div>
+  </div>
+
+  <div id="decrypt" class="tab-content">
+    <p>Type your Leet Speak text below to decrypt it!</p>
+    <textarea id="inputTextDecrypt" placeholder="Enter your Leet Speak text here..."></textarea><br>
+    <button onclick="convertToNormal()">Convert to Normal</button>
+    <div class="output" id="outputTextDecrypt"></div>
+  </div>
 
   <script>
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+      document.querySelector(`#${tab}`).classList.add('active');
+      document.querySelector(`.tab[onclick="switchTab('${tab}')"]`).classList.add('active');
+    }
+
     function convertToLeet() {
-      const input = document.getElementById('inputText').value;
+      const input = document.getElementById('inputTextEncrypt').value;
       const leetMap = {
         'a': '4', 'b': '8', 'c': '<', 'd': 'd', 'e': '3',
         'f': 'ph', 'g': '9', 'h': '#', 'i': '1', 'j': '_|',
@@ -65,7 +108,30 @@
         .map(char => leetMap[char] || char)
         .join('');
 
-      document.getElementById('outputText').textContent = leetText;
+      document.getElementById('outputTextEncrypt').textContent = leetText;
+    }
+
+    function convertToNormal() {
+      const input = document.getElementById('inputTextDecrypt').value;
+      const normalMap = {
+        '4': 'a', '8': 'b', '<': 'c', 'd': 'd', '3': 'e',
+        'ph': 'f', '9': 'g', '#': 'h', '1': 'i', '_|': 'j',
+        '|<': 'k', '|\/|': 'm', '|\|': 'n', '0': 'o', '|2': 'p',
+        '2': 'r', '5': 's', '7': 't', '\/': 'v', '\/\/': 'w',
+        '%': 'x', '¥': 'y', '2': 'z'
+      };
+      const reverseMap = Object.entries(normalMap).reduce((acc, [key, value]) => {
+        acc[key] = value;
+        return acc;
+      }, {});
+      
+      let normalText = input;
+      for (const [leet, normal] of Object.entries(reverseMap)) {
+        const regex = new RegExp(leet, 'g');
+        normalText = normalText.replace(regex, normal);
+      }
+
+      document.getElementById('outputTextDecrypt').textContent = normalText;
     }
   </script>
 </body>
