@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Index</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .grid-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Navigation Index</h1>
+        <div class="grid">
+            <a href="army.html" class="grid-item">군대</a>
+            <a href="d-d.html" class="grid-item">군대 1</a>
+            <a href="d-day.html" class="grid-item">군대 2</a>
+            <a href="d-daytest.html" class="grid-item">군대 페이지 테스트</a>
+            <a href="music.html" class="grid-item">음악</a>
+            <a href="music.md" class="grid-item">음악목록</a>
+            <a href="file/danger.html" class="grid-item">위험</a>
+            <a href="file/file.html" class="grid-item">파일 암호화</a>
+            <a href="file/txt.html" class="grid-item">텍스트 암호화</a>
+            <a href="file/steganography.html" class="grid-item">스테가노그래피</a>
+            <a href="file/test.html" class="grid-item">테스트 페이지</a>
+            <a href="leet.html" class="grid-item">리트 준비중</a>
+        </div>
+    </div>
+</body>
+</html>
