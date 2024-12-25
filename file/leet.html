@@ -113,22 +113,21 @@
 
     function convertToNormal() {
       const input = document.getElementById('inputTextDecrypt').value;
-      const normalMap = {
+      const leetMap = {
         '4': 'a', '8': 'b', '<': 'c', 'd': 'd', '3': 'e',
         'ph': 'f', '9': 'g', '#': 'h', '1': 'i', '_|': 'j',
         '|<': 'k', '|\/|': 'm', '|\|': 'n', '0': 'o', '|2': 'p',
         '2': 'r', '5': 's', '7': 't', '\/': 'v', '\/\/': 'w',
         '%': 'x', '¥': 'y', '2': 'z'
       };
-      const reverseMap = Object.entries(normalMap).reduce((acc, [key, value]) => {
-        acc[key] = value;
-        return acc;
-      }, {});
-      
+
+      // 긴 리트 표현이 먼저 매칭되도록 정렬
+      const sortedKeys = Object.keys(leetMap).sort((a, b) => b.length - a.length);
+
       let normalText = input;
-      for (const [leet, normal] of Object.entries(reverseMap)) {
-        const regex = new RegExp(leet, 'g');
-        normalText = normalText.replace(regex, normal);
+      for (const leet of sortedKeys) {
+        const regex = new RegExp(leet.replace(/([.*+?^${}()|[\]\/])/g, '\$1'), 'g');
+        normalText = normalText.replace(regex, leetMap[leet]);
       }
 
       document.getElementById('outputTextDecrypt').textContent = normalText;
