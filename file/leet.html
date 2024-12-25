@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ㄴLeet Speak Converter</title>
+  <title>Leet Speak Converter</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -98,9 +98,9 @@
       const leetMap = {
         'a': '4', 'b': '8', 'c': '<', 'd': 'd', 'e': '3',
         'f': 'ph', 'g': '9', 'h': '#', 'i': '1', 'j': '_|',
-        'k': '|<', 'l': '1', 'm': '|\/|', 'n': '|\|', 'o': '0',
+        'k': '|<', 'l': '1', 'm': '|\\/|', 'n': '|\\|', 'o': '0',
         'p': '|2', 'q': 'q', 'r': '2', 's': '5', 't': '7',
-        'u': 'u', 'v': '\/', 'w': '\/\/', 'x': '%', 'y': '¥', 'z': '2'
+        'u': 'u', 'v': '\\/', 'w': '\\/\\/', 'x': '%', 'y': '¥', 'z': '2'
       };
       const leetText = input
         .toLowerCase()
@@ -116,8 +116,8 @@
       const leetMap = {
         '4': 'a', '8': 'b', '<': 'c', 'd': 'd', '3': 'e',
         'ph': 'f', '9': 'g', '#': 'h', '1': 'i', '_|': 'j',
-        '|<': 'k', '|\/|': 'm', '|\|': 'n', '0': 'o', '|2': 'p',
-        '2': 'r', '5': 's', '7': 't', '\/': 'v', '\/\/': 'w',
+        '|<': 'k', '|\\/|': 'm', '|\\|': 'n', '0': 'o', '|2': 'p',
+        '2': 'r', '5': 's', '7': 't', '\\/': 'v', '\\/\\/': 'w',
         '%': 'x', '¥': 'y', '2': 'z'
       };
 
@@ -125,7 +125,7 @@
 
       let normalText = input;
       sortedKeys.forEach(leet => {
-        const regex = new RegExp(leet.replace(/([.*+?^${}()|[\]\/])/g, '\$1'), 'g');
+        const regex = new RegExp(leet.replace(/([.*+?^${}()|[\\]\\/])/g, '\\$1'), 'g');
         normalText = normalText.replace(regex, leetMap[leet]);
       });
 
