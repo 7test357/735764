@@ -121,14 +121,13 @@
         '%': 'x', '¥': 'y', '2': 'z'
       };
 
-      // 긴 리트 표현이 먼저 매칭되도록 정렬
       const sortedKeys = Object.keys(leetMap).sort((a, b) => b.length - a.length);
 
       let normalText = input;
-      for (const leet of sortedKeys) {
+      sortedKeys.forEach(leet => {
         const regex = new RegExp(leet.replace(/([.*+?^${}()|[\]\/])/g, '\$1'), 'g');
         normalText = normalText.replace(regex, leetMap[leet]);
-      }
+      });
 
       document.getElementById('outputTextDecrypt').textContent = normalText;
     }
