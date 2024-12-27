@@ -11,6 +11,9 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
@@ -36,6 +39,7 @@
         }
 
         main {
+            flex-grow: 1;
             padding: 40px 20px;
         }
 
@@ -129,7 +133,6 @@
         </section>
 
         <section class="popular-resources">
-            <h2>인기 리소스</h2>
             <div class="resource-card">
                 <img src="resource1.jpg" alt="리소스1">
                 <h3>아이콘 세트</h3>
