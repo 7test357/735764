@@ -68,9 +68,24 @@
             }
         }
     </style>
+    <script>
+        function login() {
+            var userId = prompt("아이디를 입력하세요:");
+            var password = prompt("비밀번호를 입력하세요:");
+            
+            if (userId === "7357" && password === "64") {
+                document.querySelector('.container').style.display = 'block';
+            } else {
+                alert("아이디 또는 비밀번호가 틀렸습니다.");
+                location.reload();
+            }
+        }
+        
+        window.onload = login;
+    </script>
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="display: none;">
         <h1>Welcome to the 735764</h1>
         <div class="grid">
             <a href="army.html" class="grid-item" target="_blank">군대</a>
