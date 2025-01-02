@@ -1,193 +1,108 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>비디오 플레이어</title>
+    <title>735764</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #fff;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
         }
-        header {
-            background: #343a40;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            width: 100%;
-            position: absolute;
-            top: 0;
-        }
+
         .container {
-            display: flex;
-            align-items: center;
-            margin-top: 60px;
-            width: 100%;
+            text-align: center;
+            width: 80%;
             max-width: 1200px;
         }
-        .banner {
-            width: 150px;
-            height: 450px;
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .grid-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: center;
-            margin: 0 10px;
-            overflow: hidden;
         }
-        .banner img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
+
+        .grid-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        .video-container {
-            flex-grow: 1;
-            background: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 600px;
-            max-width: 100%;
-            position: relative;
-        }
-        .video-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .controls, .arrow-controls {
-            display: flex;
-            justify-content: center;
-            margin: 10px 0;
-            position: relative;
-            z-index: 1;
-        }
-        .controls button, .arrow-controls button {
-            margin: 0 10px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .controls button {
-            background: #343a40;
-            color: white;
-        }
-        .controls button:hover {
-            background: #4CAF50;
-        }
-        .arrow-controls button {
-            font-size: 24px;
-            background: transparent;
-            color: #343a40;
-        }
-        .arrow-controls button:hover {
-            color: #4CAF50;
-        }
-        .volume-slider {
-            margin-left: 10px;
-        }
-        .dark-mode {
-            background-color: #333;
-            color: white;
-        }
-        .dark-mode .controls button, .dark-mode .arrow-controls button {
-            background: #555;
-            color: white;
-        }
-        .dark-mode .controls button:hover, .dark-mode .arrow-controls button:hover {
-            background: #4CAF50;
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
         }
     </style>
+    <script>
+        function login() {
+            var userId = prompt("아이디를 입력하세요:");
+            var password = prompt("비밀번호를 입력하세요:");
+            
+            if (userId === "7357" && password === "64") {
+                document.querySelector('.container').style.display = 'block';
+            } else {
+                alert("아이디 또는 비밀번호가 틀렸습니다.");
+                location.href = "about:blank";
+            }
+        }
+        
+        window.onload = login;
+    </script>
 </head>
 <body>
-    <header>
-        <h1>비디오 플레이어</h1>
-    </header>
-    <div class="container">
-        <div class="banner">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDv1Fytagbi-0pcHRlHZyXLO9pOQogu1RfSw&s" alt="왼쪽 배너 이미지">
-        </div>
-        <div class="video-container" id="video-container">
-            <iframe id="video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <div class="banner">
-            <img src="https://product.cdn.cevaws.com/var/storage/images/_aliases/reference/media/feliway-2017/images/kor-kr/1_gnetb-7sfmbx49emluey4a/6341829-1-kor-KR/1_gNETb-7SfMBX49EMLUeY4A.jpg" alt="오른쪽 배너 이미지">
+    <div class="container" style="display: none;">
+        <h1>Welcome to the 735764</h1>
+        <div class="grid">
+            <a href="army.html" class="grid-item" target="_blank">군대</a>
+            <a href="d-d.html" class="grid-item" target="_blank">외박</a>
+            <a href="dday.html" class="grid-item" target="_blank">외박</a>
+            <a href="d-day.html" class="grid-item" target="_blank">외박 1</a>
+            <a href="d-daytest.html" class="grid-item" target="_blank">D-DAY 페이지 테스트</a>
+            <a href="music.html" class="grid-item" target="_blank">음악</a>
+            <a href="music.md" class="grid-item" target="_blank">음악목록</a>
+            <a href="test.html" class="grid-item" target="_blank">인덱스 테스트 페이지</a>
+            <a href="file/danger.html" class="grid-item" target="_blank">위험</a>
+            <a href="file/file.html" class="grid-item" target="_blank">파일 암호화</a>
+            <a href="file/txt.html" class="grid-item" target="_blank">텍스트 암호화</a>
+            <a href="file/steganography.html" class="grid-item" target="_blank">스테가노그래피</a>
+            <a href="file/test.html" class="grid-item" target="_blank">테스트 페이지</a>
+            <a href="file/leet.html" class="grid-item" target="_blank">리트</a>
         </div>
     </div>
-    <div class="controls">
-        <button id="play-pause">재생</button>
-        <button id="fullscreen">전체화면</button>
-        <label for="volume">음량:</label>
-        <input type="range" id="volume" class="volume-slider" min="0" max="100" value="100">
-        <span id="volume-label">음량: 100%</span>
-        <button id="toggle-theme">다크모드</button>
-    </div>
-    <div class="arrow-controls">
-        <button id="prev-video">◀ 이전 영상</button>
-        <button id="next-video">다음 영상 ▶</button>
-    </div>
-
-    <script>
-        const videoIds = [
-            'dQw4w9WgXcQ',
-            'lAq9l8o6UXU',
-            'cQFgFD1TzWc',
-            'xyjxIhpm8Qo',
-            'CiF5ikqrnRI',
-            'FCrMKhrFH7A',
-            'qgqu41UEXSs',
-            'BewOO9EjoLk',
-            '0C89Qye-x-s',
-            'kowTrv02LHw'
-        ];
-
-        let currentVideoIndex = 0;
-        let isPlaying = false;
-
-        const videoContainer = document.getElementById('video-container');
-        const videoIframe = document.getElementById('video');
-
-        function loadVideo() {
-            videoIframe.src = `https://www.youtube.com/embed/${videoIds[currentVideoIndex]}?enablejsapi=1`;
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                currentVideoIndex = (currentVideoIndex + 1) % videoIds.length;
-                loadVideo();
-            }
-        }
-
-        document.getElementById('play-pause').addEventListener('click', () => {
-            const currentPlayer = players[currentVideoIndex];
-            if (isPlaying) {
-                currentPlayer.pauseVideo();
-                document.getElementById('play-pause').textContent = '재생';
-            } else {
-                currentPlayer.playVideo();
-                document.getElementById('play-pause').textContent = '정지';
-            }
-            isPlaying = !isPlaying;
-        });
-
-        document.getElementById('next-video').addEventListener('click', () => {
-            currentVideoIndex = (currentVideoIndex + 1) % videoIds.length;
-            loadVideo();
-        });
-
-        document.getElementById('prev-video').addEventListener('click', () => {
-            currentVideoIndex = (currentVideoIndex - 1 + videoIds.length) % videoIds.length;
-            loadVideo();
-        });
-
-        loadVideo();
-    </script>
 </body>
 </html>
