@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메세지 전송</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c2f33;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #7289da;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            background: #40444b;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            width: 300px;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+        input[type="text"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #7289da;
+            margin-bottom: 10px;
+            background-color: #2f3136;
+            color: #ffffff;
+        }
+        button {
+            background-color: #7289da;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #5b6eae;
+        }
+        #statusMessage {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="messageDiv" style="display: none;">
+        <h1>메세지 전송</h1>
+        <form id="webhookForm">
+            <label for="message">메시지 (선택):</label>
+            <textarea id="message" rows="4"></textarea>
+            <label for="file">파일 선택:</label>
+            <input type="file" id="file" accept="image/*" multiple>
+            <button type="submit">전송</button>
+            <button type="button" id="cancelButton">취소</button>
+            <div id="statusMessage"></div>
+        </form>
+    </div>
+    <script>
+        const correctUsername = "korea";
+        const correctPassword = "korea";
+
+        const username = prompt("아이디를 입력하세요:");
+        const password = prompt("비밀번호를 입력하세요:");
+
+        if (username === correctUsername && password === correctPassword) {
+            document.getElementById("messageDiv").style.display = "block";
+        } else {
+            alert("아이디 또는 비밀번호가 잘못되었습니다.");
+            window.location.href = "about:blank";
+        }
+
+        const webhookUrl = 'https://discord.com/api/webhooks/1316342438993854476/x3zdRNcyamIfcs1-A_-BuGynHDuO7TRFxXxZ3hd3DNLb5dUN0pPaREVxF9PdWobiBgcu';
+
+        document.getElementById('webhookForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            sendMessage();
+        });
+
+        document.getElementById('cancelButton').addEventListener('click', function() {
+            document.getElementById('file').value = '';
+            document.getElementById('message').value = '';
+            document.getElementById('statusMessage').textContent = '';
+        });
+
+        async function sendMessage() {
+            const message = document.getElementById('message').value;
+            const fileInput = document.getElementById('file');
+            const files = fileInput.files;
+            const maxFileSize = 8 * 1024 * 1024;
+            const statusMessage = document.getElementById('statusMessage');
+
+            if (!message && files.length === 0) {
+                statusMessage.textContent = '메시지 또는 파일을 입력하세요.';
+                statusMessage.style.color = '#ff0000';
+                return;
+            }
+
+            statusMessage.textContent = '전송 중...';
+            statusMessage.style.color = '#ffffff';
+
+            try {
+                if (message) {
+                    const messageData = new FormData();
+                    messageData.append('content', message);
+                    await fetch(webhookUrl, { method: 'POST', body: messageData });
+                }
+
+                for (const file of files) {
+                    if (file.size > maxFileSize) {
+                        statusMessage.textContent = `파일 크기가 8MB를 초과하여 건너뜀: ${file.name}`;
+                        statusMessage.style.color = '#ff0000';
+                        continue;
+                    }
+
+                    const fileData = new FormData();
+                    fileData.append('file', file);
+                    const response = await fetch(webhookUrl, { method: 'POST', body: fileData });
+
+                    if (!response.ok) {
+                        throw new Error(`파일 전송 실패: ${file.name}`);
+                    }
+                }
+
+                statusMessage.textContent = '모든 파일이 성공적으로 전송되었습니다!';
+                statusMessage.style.color = '#00ff00';
+            } catch (error) {
+                console.error(error);
+                statusMessage.textContent = '전송 중 오류 발생!';
+                statusMessage.style.color = '#ff0000';
+            }
+        }
+    </script>
+</body>
+</html>
